@@ -3107,39 +3107,61 @@ function openStoreModal(sid) {
       var h = '<div style="font-size:9px;font-weight:800;color:#7c3aed;margin-bottom:8px;display:flex;align-items:center;gap:5px;"><span style="width:3px;height:12px;background:#7c3aed;border-radius:2px;display:inline-block;"></span>👕 시즌별 매출 (백만)</div>';
       h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">';
       
-      // SS
+      // SS - compact with expandable
+      var ssTotal26 = (sd.ss26_cur||0)+(sd.ss26_ow||0), ssTotal25 = (sd.ss25_cur||0)+(sd.ss25_ow||0);
+      var ssId = 'ssDetail_'+meta.code;
       h += '<div style="padding:8px;background:#eff6ff;border-radius:6px;border:1px solid #bfdbfe;">';
-      h += '<div style="font-size:9px;font-weight:800;color:#1d4ed8;margin-bottom:6px;">☀️ SS</div>';
+      h += '<div onclick="var d=document.getElementById(\''+ssId+'\');d.style.display=d.style.display===\'none\'?\'block\':\'none\';" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;">';
+      h += '<div style="font-size:9px;font-weight:800;color:#1d4ed8;">☀️ SS</div>';
+      h += '<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:11px;font-weight:800;font-family:monospace;color:#1a2035;">'+fmt(ssTotal26)+'</span><span style="font-size:9px;color:#94a3b8;">전년 '+fmt(ssTotal25)+'</span><span style="font-size:10px;font-weight:700;">'+diff(ssTotal26,ssTotal25)+'</span><span style="font-size:9px;color:#94a3b8;">▼</span></div>';
+      h += '</div>';
+      h += '<div id="'+ssId+'" style="display:none;margin-top:6px;">';
       h += '<table style="width:100%;font-size:9px;border-collapse:collapse;">';
       h += '<tr style="border-bottom:1px solid #dbeafe;"><th style="text-align:left;color:#64748b;padding:2px 0;">구분</th><th style="text-align:right;color:#64748b;">금년</th><th style="text-align:right;color:#64748b;">전년</th><th style="text-align:right;color:#64748b;">증감</th></tr>';
       h += '<tr><td style="padding:2px 0;color:#1e40af;font-weight:600;">26S<span style="font-size:7px;color:#94a3b8;"> 정상</span></td><td style="text-align:right;font-family:monospace;">'+fmt(sd.ss26_cur)+'</td><td style="text-align:right;font-family:monospace;color:#94a3b8;">'+fmt(sd.ss25_cur)+'</td><td style="text-align:right;">'+diff(sd.ss26_cur,sd.ss25_cur)+'</td></tr>';
       h += '<tr><td style="padding:2px 0;color:#64748b;">25S~<span style="font-size:7px;color:#94a3b8;"> 이월</span></td><td style="text-align:right;font-family:monospace;">'+fmt(sd.ss26_ow)+'</td><td style="text-align:right;font-family:monospace;color:#94a3b8;">'+fmt(sd.ss25_ow)+'</td><td style="text-align:right;">'+diff(sd.ss26_ow,sd.ss25_ow)+'</td></tr>';
-      h += '</table></div>';
+      h += '</table></div></div>';
       
-      // FW
+      // FW - compact with expandable
+      var fwTotal26 = (sd.fw26_cur||0)+(sd.fw26_ow||0), fwTotal25 = (sd.fw25_cur||0)+(sd.fw25_ow||0);
+      var fwId = 'fwDetail_'+meta.code;
       h += '<div style="padding:8px;background:#fef2f2;border-radius:6px;border:1px solid #fecaca;">';
-      h += '<div style="font-size:9px;font-weight:800;color:#dc2626;margin-bottom:6px;">❄️ FW</div>';
+      h += '<div onclick="var d=document.getElementById(\''+fwId+'\');d.style.display=d.style.display===\'none\'?\'block\':\'none\';" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;">';
+      h += '<div style="font-size:9px;font-weight:800;color:#dc2626;">❄️ FW</div>';
+      h += '<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:11px;font-weight:800;font-family:monospace;color:#1a2035;">'+fmt(fwTotal26)+'</span><span style="font-size:9px;color:#94a3b8;">전년 '+fmt(fwTotal25)+'</span><span style="font-size:10px;font-weight:700;">'+diff(fwTotal26,fwTotal25)+'</span><span style="font-size:9px;color:#94a3b8;">▼</span></div>';
+      h += '</div>';
+      h += '<div id="'+fwId+'" style="display:none;margin-top:6px;">';
       h += '<table style="width:100%;font-size:9px;border-collapse:collapse;">';
       h += '<tr style="border-bottom:1px solid #fecaca;"><th style="text-align:left;color:#64748b;padding:2px 0;">구분</th><th style="text-align:right;color:#64748b;">금년</th><th style="text-align:right;color:#64748b;">전년</th><th style="text-align:right;color:#64748b;">증감</th></tr>';
       h += '<tr><td style="padding:2px 0;color:#dc2626;font-weight:600;">25F<span style="font-size:7px;color:#94a3b8;"> 정상</span></td><td style="text-align:right;font-family:monospace;">'+fmt(sd.fw26_cur)+'</td><td style="text-align:right;font-family:monospace;color:#94a3b8;">'+fmt(sd.fw25_cur)+'</td><td style="text-align:right;">'+diff(sd.fw26_cur,sd.fw25_cur)+'</td></tr>';
       h += '<tr><td style="padding:2px 0;color:#64748b;">24F~<span style="font-size:7px;color:#94a3b8;"> 이월</span></td><td style="text-align:right;font-family:monospace;">'+fmt(sd.fw26_ow)+'</td><td style="text-align:right;font-family:monospace;color:#94a3b8;">'+fmt(sd.fw25_ow)+'</td><td style="text-align:right;">'+diff(sd.fw26_ow,sd.fw25_ow)+'</td></tr>';
-      h += '</table></div>';
+      h += '</table></div></div>';
       
-      // N
-      h += '<div style="padding:8px;background:#f0fdf4;border-radius:6px;border:1px solid #bbf7d0;">';
-      h += '<div style="font-size:9px;font-weight:800;color:#15803d;margin-bottom:6px;">🔄 N시즌</div>';
-      h += '<table style="width:100%;font-size:9px;border-collapse:collapse;">';
-      h += '<tr style="border-bottom:1px solid #bbf7d0;"><th style="text-align:left;color:#64748b;padding:2px 0;">시즌</th><th style="text-align:right;color:#64748b;">금년</th><th style="text-align:right;color:#64748b;">전년</th></tr>';
+      // N - summary with expandable detail
+      var nTotal26=0, nTotal25=0;
       var nList = ['26N','25N','24N','23N','22N','21N'];
+      var nRows = '';
       for (var ni=0; ni<nList.length; ni++) {
         var nk = nList[ni];
         var v26 = sd['n26_'+nk] || 0;
         var v25 = sd['n25_'+nk] || 0;
+        nTotal26 += v26; nTotal25 += v25;
         if (v26 || v25) {
-          h += '<tr><td style="padding:2px 0;color:#475569;font-weight:600;">'+nk+'</td><td style="text-align:right;font-family:monospace;">'+fmt(v26)+'</td><td style="text-align:right;font-family:monospace;color:#94a3b8;">'+fmt(v25)+'</td></tr>';
+          nRows += '<tr><td style="padding:2px 0;color:#475569;font-weight:600;">'+nk+'</td><td style="text-align:right;font-family:monospace;">'+fmt(v26)+'</td><td style="text-align:right;font-family:monospace;color:#94a3b8;">'+fmt(v25)+'</td><td style="text-align:right;">'+diff(v26,v25)+'</td></tr>';
         }
       }
-      h += '</table></div>';
+      var nDiff = diff(nTotal26, nTotal25);
+      var nId = 'nDetail_'+meta.code;
+      h += '<div style="padding:8px;background:#f0fdf4;border-radius:6px;border:1px solid #bbf7d0;">';
+      h += '<div onclick="var d=document.getElementById(\''+nId+'\');d.style.display=d.style.display===\'none\'?\'block\':\'none\';" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;">';
+      h += '<div style="font-size:9px;font-weight:800;color:#15803d;">🔄 N시즌</div>';
+      h += '<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:11px;font-weight:800;font-family:monospace;color:#1a2035;">'+fmt(nTotal26)+'</span><span style="font-size:9px;color:#94a3b8;">전년 '+fmt(nTotal25)+'</span><span style="font-size:10px;font-weight:700;">'+nDiff+'</span><span style="font-size:9px;color:#94a3b8;">▼</span></div>';
+      h += '</div>';
+      h += '<div id="'+nId+'" style="display:none;margin-top:6px;">';
+      h += '<table style="width:100%;font-size:9px;border-collapse:collapse;">';
+      h += '<tr style="border-bottom:1px solid #bbf7d0;"><th style="text-align:left;color:#64748b;padding:2px 0;">시즌</th><th style="text-align:right;color:#64748b;">금년</th><th style="text-align:right;color:#64748b;">전년</th><th style="text-align:right;color:#64748b;">증감</th></tr>';
+      h += nRows;
+      h += '</table></div></div>';
       
       h += '</div>';
       seasonDiv.innerHTML = h;
